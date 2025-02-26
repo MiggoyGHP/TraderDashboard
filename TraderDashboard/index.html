@@ -127,7 +127,7 @@
                     <h3>BTC/USD</h3>
                     <div class="chart-box" id="btcusd-chart"></div>
                     <div class="chart-box tradingview-widget-container">
-                        <div class="chart-box tradingview-widget-container__widget"></div>
+                        <div class="tradingview-widget-container__widget"></div>
                         <script src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
                             {"symbol": "COINBASE:BTCUSD", "width": "100%", "locale": "en", "colorTheme": "light"}
                         </script>
@@ -165,58 +165,31 @@
 
     <!-- Load Chart.js for PH10Y -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    fetch('data/ph10y.json')
-        .then(response => response.json())
-        .then(data => {
-            const latest = data[data.length - 1];
-            const previous = data[data.length - 2];
-            const change = (latest.yield - previous.yield).toFixed(2);
-            document.getElementById('ph10y-latest').textContent = `${latest.yield}%`;
-            document.getElementById('ph10y-change').textContent = `${change}%`;
+    <script>
+        fetch('data/ph10y.json')
+            .then(response => response.json())
+            .then(data => {
+                const latest = data[data.length - 1];
+                const previous = data[data.length - 2];
+                const change = (latest.yield - previous.yield).toFixed(2);
+                document.getElementById('ph10y-latest').textContent = `${latest.yield}%`;
+                document.getElementById('ph10y-change').textContent = `${change}%`;
 
-            const ctx = document.getElementById('ph10y-chart').getContext('2d');
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: data.map(d => d.date),
-                    datasets: [{
-                        label: 'PH10Y Yield',
-                        data: data.map(d => d.yield),
-                        borderColor: 'blue',
-                        fill: false
-                    }]
-                }
+                const ctx = document.getElementById('ph10y-chart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.map(d => d.date),
+                        datasets: [{
+                            label: 'PH10Y Yield',
+                            data: data.map(d => d.yield),
+                            borderColor: 'blue',
+                            fill: false
+                        }]
+                    }
+                });
             });
-        });
-</script>
-<script>
-    // Earnings
-    fetch('/.netlify/functions/get-earnings')
-        .then(response => response.json())
-        .then(data => {
-            const earningsByDate = {};
-            data.forEach(e => {
-                const date = e.date;
-                if (!earningsByDate[date]) earningsByDate[date] = { BMO: [], AMC: [] };
-                earningsByDate[date][e.hour === 'bmo' ? 'BMO' : 'AMC'].push(e.symbol);
-            });
-            let html = '';
-            for (const [date, times] of Object.entries(earningsByDate)) {
-                html += `<h3>${date}</h3>`;
-                html += `<p>Before Market Open: ${times.BMO.join(', ')}</p>`;
-                html += `<p>After Market Close: ${times.AMC.join(', ')}</p>`;
-            }
-            document.getElementById('earnings').innerHTML = html;
-        });
-
-    // Economic Events
-    fetch('/.netlify/functions/get-economic-events')
-        .then(response => response.json())
-        .then(events => {
-            const html = events.map(e => `<p>${e.date}: ${e.event}</p>`).join('');
-            document.getElementById('economic-events').innerHTML = html;
-        });
-</script>
-</body>
-</html>
+    </script>
+    <script>
+        // Earnings
+        fetch('/.netlify/functions/get
