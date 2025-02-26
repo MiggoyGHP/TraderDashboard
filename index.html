@@ -3,50 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trader Dashboard</title>
+    <title>Trader Dashboard - Philippine & US Markets</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap/5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { padding: 20px; }
-        h2 { color: #333; }
-        .section { margin-bottom: 40px; }
-        .chart-box { margin: 10px 0; }
+        body {
+            padding: 20px;
+            background-color: #f8f9fa; /* Light gray background for contrast */
+            font-family: Arial, sans-serif;
+        }
+        h1, h2, h3 {
+            color: #2c3e50; /* Dark blue for headers */
+        }
+        .section {
+            margin-bottom: 40px;
+            background-color: #ffffff; /* White background for sections */
+            border-radius: 8px; /* Rounded corners */
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+        .chart-box {
+            margin: 10px 0;
+            border: 1px solid #ddd; /* Light border for charts */
+            border-radius: 4px;
+            padding: 10px;
+        }
+        .container {
+            max-width: 1200px; /* Center and limit width for better readability */
+        }
+        @media (max-width: 768px) {
+            .col-md-4 {
+                flex: 0 0 100%; /* Stack columns on mobile */
+                max-width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>My Trading Dashboard</h1>
+        <h1>Trader Dashboard - Philippine & US Markets</h1>
 
         <!-- Philippine Market -->
         <div class="section">
             <h2>Philippine Market</h2>
+            <p>Key metrics and charts for the Philippine Stock Exchange and currency rates.</p>
             <div class="row">
                 <!-- PSEi -->
                 <div class="col-md-4">
                     <h3>PSEi</h3>
-                    <div class="chart-box" id="psei-chart"></div>
-                    <div class="chart-box tradingview-widget-container">
-                        <div class="tradingview-widget-container__widget"></div>
-                        <script src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
-                            {"symbol": "PSE:PSEI", "width": "100%", "locale": "en", "colorTheme": "light"}
-                        </script>
+                    <div class="chart-box">
+                        <iframe src="https://bigcharts.com/quote/PSEI?chart_type=C&range=1&size=L" width="400" height="300" frameborder="0"></iframe>
                     </div>
+                    <p>Latest Close: <span id="psei-close">1234.56</span></p>
+                    <p>Change from Yesterday: <span id="psei-change">+5.23 (+0.42%)</span></p>
                 </div>
                 <!-- USDPHP -->
                 <div class="col-md-4">
                     <h3>USD/PHP</h3>
-                    <div class="chart-box" id="usdphp-chart"></div>
-                    <div class="chart-box tradingview-widget-container">
-                        <div class="tradingview-widget-container__widget"></div>
-                        <script src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
-                            {"symbol": "FX_IDC:USDPHP", "width": "100%", "locale": "en", "colorTheme": "light"}
-                        </script>
+                    <div class="chart-box">
+                        <iframe src="https://bigcharts.com/quote/USDPHP?chart_type=C&range=1&size=L" width="400" height="300" frameborder="0"></iframe>
                     </div>
+                    <p>Latest Close: <span id="usdphp-close">56.78</span></p>
+                    <p>Change from Yesterday: <span id="usdphp-change">-0.15 (-0.27%)</span></p>
                 </div>
                 <!-- PH10Y -->
                 <div class="col-md-4">
                     <h3>PH 10Y Yield</h3>
-                    <p>Latest: <span id="ph10y-latest">Loading...</span></p>
-                    <p>Change: <span id="ph10y-change">Loading...</span></p>
+                    <p>Latest: <span id="ph10y-latest">6.60%</span></p>
+                    <p>Change: <span id="ph10y-change">+0.05% (+0.76%)</span></p>
                     <canvas id="ph10y-chart" width="400" height="300"></canvas>
                 </div>
             </div>
@@ -55,141 +78,31 @@
         <!-- US Market -->
         <div class="section">
             <h2>US Market</h2>
+            <p>Key indices, currency, bond yield, and cryptocurrency for the US market.</p>
             <div class="row">
                 <!-- SPY -->
                 <div class="col-md-4">
                     <h3>SPY</h3>
-                    <div class="chart-box" id="spy-chart"></div>
-                    <div class="chart-box tradingview-widget-container">
-                        <div class="tradingview-widget-container__widget"></div>
-                        <script src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
-                            {"symbol": "AMEX:SPY", "width": "100%", "locale": "en", "colorTheme": "light"}
-                        </script>
+                    <div class="chart-box">
+                        <iframe src="https://bigcharts.com/quote/SPY?chart_type=C&range=1&size=L" width="400" height="300" frameborder="0"></iframe>
                     </div>
+                    <p>Latest Close: <span id="spy-close">495.23</span></p>
+                    <p>Change from Yesterday: <span id="spy-change">+2.15 (+0.43%)</span></p>
                 </div>
                 <!-- QQQ -->
                 <div class="col-md-4">
                     <h3>QQQ</h3>
-                    <div class="chart-box" id="qqq-chart"></div>
-                    <div class="chart-box tradingview-widget-container">
-                        <div class="tradingview-widget-container__widget"></div>
-                        <script src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
-                            {"symbol": "NASDAQ:QQQ", "width": "100%", "locale": "en", "colorTheme": "light"}
-                        </script>
+                    <div class="chart-box">
+                        <iframe src="https://bigcharts.com/quote/QQQ?chart_type=C&range=1&size=L" width="400" height="300" frameborder="0"></iframe>
                     </div>
+                    <p>Latest Close: <span id="qqq-close">435.67</span></p>
+                    <p>Change from Yesterday: <span id="qqq-change">+1.89 (+0.44%)</span></p>
                 </div>
                 <!-- DJI -->
                 <div class="col-md-4">
                     <h3>DJI</h3>
-                    <div class="chart-box" id="dji-chart"></div>
-                    <div class="chart-box tradingview-widget-container">
-                        <div class="tradingview-widget-container__widget"></div>
-                        <script src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
-                            {"symbol": "INDEX:DJI", "width": "100%", "locale": "en", "colorTheme": "light"}
-                        </script>
+                    <div class="chart-box">
+                        <iframe src="https://bigcharts.com/quote/DJIA?chart_type=C&range=1&size=L" width="400" height="300" frameborder="0"></iframe>
                     </div>
-                </div>
-                <!-- RUT -->
-                <div class="col-md-4">
-                    <h3>RUT</h3>
-                    <div class="chart-box" id="rut-chart"></div>
-                    <div class="chart-box tradingview-widget-container">
-                        <div class="tradingview-widget-container__widget"></div>
-                        <script src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
-                            {"symbol": "INDEX:RUT", "width": "100%", "locale": "en", "colorTheme": "light"}
-                        </script>
-                    </div>
-                </div>
-                <!-- DXY -->
-                <div class="col-md-4">
-                    <h3>DXY</h3>
-                    <div class="chart-box" id="dxy-chart"></div>
-                    <div class="chart-box tradingview-widget-container">
-                        <div class="tradingview-widget-container__widget"></div>
-                        <script src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
-                            {"symbol": "CURRENCY:DXY", "width": "100%", "locale": "en", "colorTheme": "light"}
-                        </script>
-                    </div>
-                </div>
-                <!-- US10Y -->
-                <div class="col-md-4">
-                    <h3>US 10Y</h3>
-                    <div class="chart-box" id="us10y-chart"></div>
-                    <div class="chart-box tradingview-widget-container">
-                        <div class="tradingview-widget-container__widget"></div>
-                        <script src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
-                            {"symbol": "US10Y", "width": "100%", "locale": "en", "colorTheme": "light"}
-                        </script>
-                    </div>
-                </div>
-                <!-- BTCUSD -->
-                <div class="col-md-4">
-                    <h3>BTC/USD</h3>
-                    <div class="chart-box" id="btcusd-chart"></div>
-                    <div class="chart-box tradingview-widget-container">
-                        <div class="tradingview-widget-container__widget"></div>
-                        <script src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
-                            {"symbol": "COINBASE:BTCUSD", "width": "100%", "locale": "en", "colorTheme": "light"}
-                        </script>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Earnings -->
-        <div class="section">
-            <h2>Upcoming Earnings (This Week)</h2>
-            <div id="earnings">Loading earnings...</div>
-        </div>
-
-        <!-- Economic Events -->
-        <div class="section">
-            <h2>Key Economic Events (US, This Week)</h2>
-            <div id="economic-events">Loading events...</div>
-        </div>
-    </div>
-
-    <!-- Load TradingView Charts -->
-    <script src="https://s3.tradingview.com/tv.js"></script>
-    <script>
-        new TradingView.widget({"width": 400, "height": 300, "symbol": "PSE:PSEI", "interval": "D", "timezone": "Etc/UTC", "theme": "light", "style": "1", "container_id": "psei-chart"});
-        new TradingView.widget({"width": 400, "height": 300, "symbol": "FX_IDC:USDPHP", "interval": "D", "timezone": "Etc/UTC", "theme": "light", "style": "1", "container_id": "usdphp-chart"});
-        new TradingView.widget({"width": 400, "height": 300, "symbol": "AMEX:SPY", "interval": "D", "timezone": "Etc/UTC", "theme": "light", "style": "1", "container_id": "spy-chart"});
-        new TradingView.widget({"width": 400, "height": 300, "symbol": "NASDAQ:QQQ", "interval": "D", "timezone": "Etc/UTC", "theme": "light", "style": "1", "container_id": "qqq-chart"});
-        new TradingView.widget({"width": 400, "height": 300, "symbol": "INDEX:DJI", "interval": "D", "timezone": "Etc/UTC", "theme": "light", "style": "1", "container_id": "dji-chart"});
-        new TradingView.widget({"width": 400, "height": 300, "symbol": "INDEX:RUT", "interval": "D", "timezone": "Etc/UTC", "theme": "light", "style": "1", "container_id": "rut-chart"});
-        new TradingView.widget({"width": 400, "height": 300, "symbol": "CURRENCY:DXY", "interval": "D", "timezone": "Etc/UTC", "theme": "light", "style": "1", "container_id": "dxy-chart"});
-        new TradingView.widget({"width": 400, "height": 300, "symbol": "US10Y", "interval": "D", "timezone": "Etc/UTC", "theme": "light", "style": "1", "container_id": "us10y-chart"});
-        new TradingView.widget({"width": 400, "height": 300, "symbol": "COINBASE:BTCUSD", "interval": "D", "timezone": "Etc/UTC", "theme": "light", "style": "1", "container_id": "btcusd-chart"});
-    </script>
-
-    <!-- Load Chart.js for PH10Y -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        fetch('data/ph10y.json')
-            .then(response => response.json())
-            .then(data => {
-                const latest = data[data.length - 1];
-                const previous = data[data.length - 2];
-                const change = (latest.yield - previous.yield).toFixed(2);
-                document.getElementById('ph10y-latest').textContent = `${latest.yield}%`;
-                document.getElementById('ph10y-change').textContent = `${change}%`;
-
-                const ctx = document.getElementById('ph10y-chart').getContext('2d');
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: data.map(d => d.date),
-                        datasets: [{
-                            label: 'PH10Y Yield',
-                            data: data.map(d => d.yield),
-                            borderColor: 'blue',
-                            fill: false
-                        }]
-                    }
-                });
-            });
-    </script>
-    <script>
-        // Earnings
-        fetch('/.netlify/functions/get
+                    <p>Latest Close: <span id="dji-close">38987.45</span></p>
+                    <
